@@ -1,3 +1,5 @@
+using System.Diagnostics.Metrics;
+
 public static class ArraySelector
 {
     public static void Run()
@@ -11,6 +13,26 @@ public static class ArraySelector
 
     private static int[] ListSelector(int[] list1, int[] list2, int[] select)
     {
-        return [];
+        int indexList1 = 0;
+        int indexList2 = 0;
+        int indexSelect = 0;
+        int[] resultArray = new int[select.Length];
+        
+
+        foreach (int i in select)
+        {
+        
+            if (i == 1){
+                    int newNumber = list1[indexList1];
+                    resultArray[indexSelect] = newNumber;
+                    indexList1++;
+            } else if (i == 2){
+                    int newNumber = list2[indexList2];
+                    resultArray[indexSelect] = newNumber;
+                    indexList2++;
+            } 
+        indexSelect++;
+        }
+        return resultArray;
     }
 }
