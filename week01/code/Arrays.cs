@@ -50,11 +50,16 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        int startIndex = data.Count - amount; //That is where I will start the extraction of the original list
-
-        List<int> extractList = data.GetRange(startIndex, amount); //amount represent the number of element to I extract in other list
         
-        data.RemoveRange(startIndex, amount); //Remove the duplicate fragment in the original list
+
+        // The last 'amount' elements are the ones that need to move to the beginning,
+        // so this calculates where that section starts.
+        
+        int startIndex = data.Count - amount; 
+
+        List<int> extractList = data.GetRange(startIndex, amount); //Extract the last 'amount' elements that will be moved to the beginning of the list
+        
+        data.RemoveRange(startIndex, amount); // Remove the extracted elements from the original list to avoid having them twice.
 
         data.InsertRange(0, extractList); //I insert the extract list in the 0 position in the list
  
