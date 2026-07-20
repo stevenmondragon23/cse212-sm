@@ -22,8 +22,32 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        // group variables
+        HashSet<string> setPairs = new();
+        List<string> result = new();
+
+        foreach(string word in words)
+        {  
+            // inverse Logic 
+            string reverseWord = $"{word[1]}{word[0]}";
+
+            if (reverseWord != word)
+            {
+                if(setPairs.Contains(reverseWord))
+                {
+                    result.Add($"{reverseWord} & {word}");
+                }
+                setPairs.Add(word);
+            }
+        }
+        return result.ToArray();
     }
+
+
+
+
+
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
