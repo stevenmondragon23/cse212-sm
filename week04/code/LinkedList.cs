@@ -173,10 +173,15 @@ public class LinkedList : IEnumerable<int>
                 }
                 else
                 {
+                    //disconnect previous node
                     removeNode.Prev!.Next = removeNode.Next;
                     removeNode.Next!.Prev = removeNode.Prev;
                     removeNode.Next = null;
                     removeNode.Prev = null;
+
+                    
+
+
                 }
                 return;
             }
@@ -192,7 +197,23 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+
+        Node? replaceNode = _head;
+
+        while(replaceNode != null)
+        {
+            if(replaceNode.Data  == oldValue)
+            {
+                replaceNode.Data = newValue;
+            }
+            replaceNode = replaceNode.Next;
+        }
     }
+
+
+
+
+
 
     /// <summary>
     /// Yields all values in the linked list
@@ -222,7 +243,13 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+
+        var previusNode = _tail;
+        while(previusNode is not null)
+        {
+            yield return previusNode.Data;
+            previusNode = previusNode.Prev;
+        }
     }
 
     public override string ToString()
