@@ -33,7 +33,31 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+
+        Node newTail = new(value);
+
+        if (_head is null)
+        {
+            _head = newTail;
+            _tail = newTail;
+        }
+        else
+        {
+            newTail.Prev = _tail;
+            _tail!.Next = newTail;
+            _tail = newTail;
+        }
+
+
     }
+
+
+
+
+
+
+
+
 
 
     /// <summary>
@@ -64,7 +88,18 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void RemoveTail()
     {
-        // TODO Problem 2
+        if(_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+
+        }
+        else if (_tail is not null)
+        {
+            _tail.Prev!.Next = null;
+            _tail = _tail.Prev; 
+        }
+
     }
 
     /// <summary>
@@ -109,6 +144,46 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        
+        Node? removeNode = _head;
+
+        while(removeNode != null)
+        {
+            if(removeNode.Data  == value)
+            {
+                if(removeNode == _tail)
+                {
+                    if(_head == _tail)
+                    {
+                        _head = null;
+                        _tail = null;
+                    }
+
+                    else if(_tail is not null)
+                    {
+                        _tail.Prev!.Next = null;
+                        _tail = _tail.Prev; 
+                    }
+
+                }
+                else if(removeNode == _head)
+                {
+                    _head.Next!.Prev = null; 
+                    _head = _head.Next;
+                }
+                else
+                {
+                    removeNode.Prev!.Next = removeNode.Next;
+                    removeNode.Next!.Prev = removeNode.Prev;
+                    removeNode.Next = null;
+                    removeNode.Prev = null;
+                }
+                return;
+            }
+            removeNode = removeNode.Next;
+        }
+
+
     }
 
     /// <summary>
