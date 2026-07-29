@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 
 public static class Recursion
 {
@@ -12,10 +13,30 @@ public static class Recursion
     /// to identify a base case (terminating case).  If the value of
     /// n <= 0, just return 0.   A loop should not be used.
     /// </summary>
+    /// 
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+
+        if(n <= 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (n*n) + SumSquaresRecursive(n-1); 
+        }
+
+        /*own notes:   
+            1.- Time Complexity Big0 = 0(n) you call to reuse the function "n" times
+
+            2.- Test:
+                0 = 1
+                1 = 1 
+                -2  = 1
+
+            3.- If n is a bigInt = StackOverflowException
+        */
     }
 
     /// <summary>
@@ -40,6 +61,32 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        
+        /*
+        I assume: 
+        1.- that each letter is unique 
+        2.- that the size specified is always valid  (between 1 and the length of the letters list).
+
+
+        */
+
+
+        if(word.Length == size)
+        {
+            results.Add(word); 
+        }
+        else
+        {
+             for(var i = 0; i < letters.Length; i++)
+            {
+                var letterResult = letters.Remove(i,1);
+
+                PermutationsChoose(results, letterResult, size, word + letters[i]);
+            }
+        }
+            // notes: 
+                //Time complexity = n**size 
+                //where n is letter.lenght and repeat until size complete the conditional
     }
 
     /// <summary>
@@ -86,6 +133,12 @@ public static class Recursion
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
+        //remember
+        if(remember is null)
+        {
+         remember = new Dictionary<int, decimal>();   
+        }
+
         // Base Cases
         if (s == 0)
             return 0;
@@ -98,9 +151,17 @@ public static class Recursion
 
         // TODO Start Problem 3
 
-        // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
-        return ways;
+        if (remember.ContainsKey(s))
+        {
+            return remember[s];
+        }
+        else
+        {
+            // Solve using recursion
+            decimal ways = CountWaysToClimb(s - 1,remember) + CountWaysToClimb(s - 2,remember) + CountWaysToClimb(s - 3,remember);
+            remember[s] = ways;
+            return ways;
+        }        
     }
 
     /// <summary>
@@ -120,6 +181,12 @@ public static class Recursion
     {
         // TODO Start Problem 4
     }
+
+
+
+
+
+
 
     /// <summary>
     /// Use recursion to insert all paths that start at (0,0) and end at the
