@@ -153,42 +153,25 @@ public class LinkedList : IEnumerable<int>
             {
                 if(removeNode == _tail)
                 {
-                    if(_head == _tail)
-                    {
-                        _head = null;
-                        _tail = null;
-                    }
-
-                    else if(_tail is not null)
-                    {
-                        _tail.Prev!.Next = null;
-                        _tail = _tail.Prev; 
-                    }
+                   RemoveTail();
 
                 }
                 else if(removeNode == _head)
                 {
-                    _head.Next!.Prev = null; 
-                    _head = _head.Next;
+                    RemoveHead();
                 }
-                else
+                else if(removeNode.Prev != null && removeNode.Next != null)
                 {
                     //disconnect previous node
-                    removeNode.Prev!.Next = removeNode.Next;
-                    removeNode.Next!.Prev = removeNode.Prev;
+                    removeNode.Prev.Next = removeNode.Next;
+                    removeNode.Next.Prev = removeNode.Prev;
                     removeNode.Next = null;
                     removeNode.Prev = null;
-
-                    
-
-
                 }
                 return;
             }
             removeNode = removeNode.Next;
         }
-
-
     }
 
     /// <summary>
