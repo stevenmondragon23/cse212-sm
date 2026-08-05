@@ -19,6 +19,7 @@ public class Node
             return;      //<-- nothing happend
         }
 
+
         if (value < Data)
         {
             // Insert to the left
